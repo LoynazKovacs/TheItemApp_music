@@ -9,10 +9,6 @@ interface RouteDeps {
   engine: MusicEngineClient;
 }
 
-/** "Everyone" group — the music-backend functional user is a member, so tracks
- *  scoped to it are readable/editable by the background generation job. */
-const EVERYONE_GROUP_ID = '7000000000000000001d0002';
-
 function createAuthPreHandler(coreApi: CoreApiClient) {
   return async (request: FastifyRequest, reply: FastifyReply) => {
     const authorization = authorizationHeader(request.headers.authorization);
@@ -74,7 +70,8 @@ export function registerRoutes(app: FastifyInstance, deps: RouteDeps): void {
     const authorization = authorizationHeader(request.headers.authorization);
     const cookie = cookieHeader(request.headers.cookie);
 
-    // 1. Create the track row (owned by the caller) in the generating state.
+    // 1. Create the track row in the generating state, under the caller's JWT
+    //    so the row is owned by THAT user (their personal library).
     let trackId: string;
     try {
       const created = await deps.coreApi.createTrack(
@@ -85,7 +82,6 @@ export function registerRoutes(app: FastifyInstance, deps: RouteDeps): void {
           status: 'generating',
           engine: 'heartmula',
           durationMs: maxAudioLengthMs,
-          groupIds: [EVERYONE_GROUP_ID],
         },
         authorization,
         cookie,
@@ -141,7 +137,7 @@ async function generateInBackground(app: FastifyInstance, deps: RouteDeps, job: 
 
     const fileId = await uploadGenerated(deps, job, audio.bytes, audio.mimeType);
 
-    await deps.coreApi.patchTrack(job.trackId, {
+    await patchTrack(deps, job, {
       status: 'ready',
       audioFileId: fileId,
       mimeType: audio.mimeType,
@@ -152,10 +148,20 @@ async function generateInBackground(app: FastifyInstance, deps: RouteDeps, job: 
     const message = error instanceof Error ? error.message : String(error);
     app.log.error({ error, trackId: job.trackId }, 'Background generation failed');
     try {
-      await deps.coreApi.patchTrack(job.trackId, { status: 'failed', error: message.slice(0, 500) });
+      await patchTrack(deps, job, { status: 'failed', error: message.slice(0, 500) });
     } catch (patchErr) {
       app.log.error({ patchErr, trackId: job.trackId }, 'Failed to mark track as failed');
     }
+  }
+}
+
+/** Patch the track row under the caller's JWT (they own it); fall back to the
+ *  app key only if their token expired mid-generation, so status still lands. */
+async function patchTrack(deps: RouteDeps, job: BackgroundJob, patch: Record<string, unknown>): Promise<void> {
+  try {
+    await deps.coreApi.patchTrack(job.trackId, patch, job.authorization, job.cookie);
+  } catch {
+    await deps.coreApi.patchTrack(job.trackId, patch);
   }
 }
 
@@ -166,23 +172,16 @@ async function uploadGenerated(
   mimeType: string,
 ): Promise<string> {
   const filename = `${slugify(job.title) || 'track'}.mp3`;
-  // Try under the caller's auth first (so they own the file). If their token has
-  // expired during a long generation, fall back to the functional user.
-  try {
-    const uploaded = await deps.coreApi.uploadFile(
-      { bytes, mimeType, filename },
-      { title: job.title, visibility: 'private' },
-      job.authorization,
-      job.cookie,
-    );
-    return uploaded._id;
-  } catch {
-    const uploaded = await deps.coreApi.uploadFile(
-      { bytes, mimeType, filename },
-      { title: job.title, visibility: 'private' },
-    );
-    return uploaded._id;
-  }
+  // Always upload under the originating user's JWT so the file is created in
+  // their name (ownerId = the user). We deliberately do NOT fall back to the
+  // app's functional user — a track must never be silently owned by the app.
+  const uploaded = await deps.coreApi.uploadFile(
+    { bytes, mimeType, filename },
+    { title: job.title, visibility: 'private' },
+    job.authorization,
+    job.cookie,
+  );
+  return uploaded._id;
 }
 
 function clampDuration(durationMs?: number): number {

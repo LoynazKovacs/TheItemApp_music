@@ -78,13 +78,19 @@ export class CoreApiClient {
     return (await res.json()) as { _id: string };
   }
 
-  /** Patch a music_tracks row via `$set`. Used by the background generation job
-   *  (runs under the functional user's API key). */
-  async patchTrack(id: string, patch: Record<string, unknown>): Promise<void> {
+  /** Patch a music_tracks row via `$set`. Prefer the originating user's JWT
+   *  (they own the row); the background job falls back to the app key only if
+   *  the user's token has expired during a long generation. */
+  async patchTrack(
+    id: string,
+    patch: Record<string, unknown>,
+    authorization?: string,
+    cookie?: string,
+  ): Promise<void> {
     const url = `${this.baseUrl}/api/dynamic/music_tracks/${encodeURIComponent(id)}`;
     const res = await fetch(url, {
       method: 'PUT',
-      headers: this.headers,
+      headers: this.requestHeaders(authorization, cookie),
       body: JSON.stringify({ $set: patch }),
     });
     if (!res.ok) {
@@ -94,8 +100,9 @@ export class CoreApiClient {
   }
 
   /**
-   * Upload a binary blob to core's `/api/files/uploadDirect`. Called with the
-   * originating user's auth so the generated track file is owned by them.
+   * Upload a binary blob to core's `/api/files/uploadDirect`. MUST be called
+   * with the originating user's JWT so the generated track file is created in
+   * THAT user's name (ownerId = the user), not the app's functional user.
    */
   async uploadFile(
     blob: FileBlob,
