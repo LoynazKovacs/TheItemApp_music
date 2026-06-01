@@ -1,0 +1,192 @@
+[
+  {
+    "_id": {
+      "$oid": "8c0000000000000000030001"
+    },
+    "key": "music_tracks",
+    "collection": "music_tracks",
+    "title": "Tracks",
+    "titleSingular": "Track",
+    "titlePlural": "Tracks",
+    "description": "Songs generated in the Music app. Each row captures the prompt (style tags + optional lyrics) and, once the HeartMuLa engine finishes, links `audioFileId` to the rendered audio stored in core's `files` collection. The `status` field tracks the async generation lifecycle (generating → ready / failed).",
+    "ai": {
+      "purpose": "Stores AI-generated music: the prompt (style `tags` and optional `lyrics`) plus the rendered audio (as a `files` row) and the generation status.",
+      "howItWorks": "The `MusicStudioPrefab` POSTs `{title, lyrics, tags, durationMs}` to `/music-api/api/generate`. The music-api immediately creates a `music_tracks` row with `status: generating` and returns its id, then runs HeartMuLa in the background. When generation completes it uploads the audio to core's `/api/files/uploadDirect` and patches the row to `status: ready` with `audioFileId` set; on error it sets `status: failed` and `error`. The frontend polls the row until it leaves the `generating` state.",
+      "manipulation": "Create rows through the Studio prefab (which drives the generation pipeline). You can edit `title` freely. Do not hand-edit `status`, `audioFileId`, or `error` — they are managed by the generation job. Delete a row to remove it from the library (this does NOT delete the underlying `files` audio).",
+      "outcomes": [
+        {
+          "outcome": "Generate a song",
+          "how": "Open the Music Studio, enter style tags (e.g. `lofi,piano,chill`) and optionally lyrics with [Verse]/[Chorus] markers, pick a length, and click Generate. A `music_tracks` row is created in the `generating` state and flips to `ready` with playable audio when the engine finishes."
+        }
+      ],
+      "warnings": [
+        "Generation is roughly real-time — a 2-minute song takes ~2 minutes. A row can sit in `generating` for a while; that is expected.",
+        "Deleting a `music_tracks` row does NOT delete the underlying `files` audio record. Delete the file separately if needed."
+      ]
+    },
+    "icon": "lucide:music",
+    "appId": {
+      "$oid": "8c0000000000000000000001"
+    },
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title",
+          "description": "Short label for the track. Defaults to a name derived from the style tags when generated from the Studio.",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "tags": {
+          "type": "string",
+          "title": "Style tags",
+          "description": "Comma-separated style/mood/instrument tags passed to the generator, e.g. `piano,happy,wedding,romantic`. Drives the musical character of the song.",
+          "maxLength": 1000
+        },
+        "lyrics": {
+          "type": "string",
+          "title": "Lyrics",
+          "description": "Optional lyrics with section markers ([Intro], [Verse], [Chorus], [Bridge], [Outro]). Leave empty for an instrumental. HeartMuLa sings these in the generated track.",
+          "x-ui": {
+            "format": "textarea"
+          }
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "description": "Generation lifecycle state. Backend-managed: `generating` while the engine renders, `ready` once audio is attached, `failed` if generation errored.",
+          "enum": ["generating", "ready", "failed"],
+          "default": "generating",
+          "x-ui": {
+            "readonly": true
+          }
+        },
+        "audioFileId": {
+          "type": "string",
+          "title": "Audio",
+          "description": "The rendered song, stored as a row in core's `files` collection (audio/mpeg). Backend-managed: set when generation completes.",
+          "x-ref": "files",
+          "x-ui": {
+            "control": "fileUpload",
+            "accept": "audio/*"
+          }
+        },
+        "engine": {
+          "type": "string",
+          "title": "Engine",
+          "description": "Music-generation engine that produced this track. Currently always `heartmula`.",
+          "maxLength": 60,
+          "x-ui": {
+            "readonly": true
+          }
+        },
+        "durationMs": {
+          "type": "number",
+          "title": "Duration (ms)",
+          "description": "Requested/approximate length of the track in milliseconds.",
+          "minimum": 0,
+          "x-ui": {
+            "readonly": true
+          }
+        },
+        "mimeType": {
+          "type": "string",
+          "title": "MIME type",
+          "description": "MIME type of the stored audio (audio/mpeg). Cached for fast list rendering.",
+          "x-ui": {
+            "readonly": true
+          }
+        },
+        "error": {
+          "type": "string",
+          "title": "Error",
+          "description": "Populated by the generation job when `status` is `failed` — the upstream error message.",
+          "x-ui": {
+            "readonly": true,
+            "format": "textarea"
+          }
+        },
+        "groupIds": {
+          "type": "array",
+          "title": "Groups",
+          "description": "Row-security scope.",
+          "items": {
+            "type": "string",
+            "x-ref": "groups"
+          }
+        }
+      }
+    },
+    "ui": {
+      "display": {
+        "templates": ["{{title}}"]
+      },
+      "prefabs": {
+        "list": "list",
+        "edit": "edit",
+        "show": "show"
+      },
+      "list": {
+        "headerActions": [
+          {
+            "kind": "refresh"
+          },
+          {
+            "kind": "deleteFiltered"
+          }
+        ]
+      }
+    },
+    "api": {
+      "crud": true,
+      "realtime": true
+    },
+    "auth": {
+      "read": {
+        "groupIds": [
+          {
+            "$oid": "7000000000000000001d0001"
+          },
+          {
+            "$oid": "7000000000000000001d0002"
+          }
+        ]
+      },
+      "create": {
+        "groupIds": [
+          {
+            "$oid": "7000000000000000001d0001"
+          },
+          {
+            "$oid": "7000000000000000001d0002"
+          }
+        ]
+      },
+      "edit": {
+        "groupIds": [
+          {
+            "$oid": "7000000000000000001d0001"
+          },
+          {
+            "$oid": "7000000000000000001d0002"
+          }
+        ]
+      },
+      "delete": {
+        "groupIds": [
+          {
+            "$oid": "7000000000000000001d0001"
+          },
+          {
+            "$oid": "7000000000000000001d0002"
+          }
+        ]
+      }
+    },
+    "tier": 3,
+    "kind": "data"
+  }
+]

@@ -1,0 +1,97 @@
+# Music app — joins core's theitemapp network.
+# Usage: docker compose up -d --build
+#
+# Brings up three services:
+#   music         — Angular Native Federation remote (Caddy serving /mf/music/*)
+#   music-api     — Fastify proxy (registers with core, /music-api/api/*)
+#   music-engine  — HeartMuLa music-generation engine (heartlib + FastAPI) on :8600
+#
+# music-engine exposes POST /generate (lyrics + tags -> mp3) and GET /health.
+# The music-api proxies generation behind core's auth, persists the resulting
+# audio to core's `files` collection, and tracks generation status on the
+# `music_tracks` model. The engine's own port is exposed for direct testing.
+#
+# HeartMuLa (https://github.com/HeartMuLa/heartlib) is Apache-2.0. The 3B model
+# + HeartCodec checkpoints are downloaded on first boot into the heartmula-ckpt
+# volume, so subsequent restarts skip the multi-GB download.
+
+services:
+  music:
+    build:
+      context: .
+      dockerfile: platform/Dockerfile
+    ports:
+      - "${MUSIC_WEB_PORT:-4211}:80"
+    restart: unless-stopped
+
+  music-api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      MUSIC_API_PORT: "3009"
+      MUSIC_APP_KEY: "music"
+      MUSIC_REGISTRATION_BASE_URL: "http://music-api:3009"
+      APP_REGISTRATION_KEY: "${APP_REGISTRATION_KEY:-}"
+      CORE_API_URL: "http://backend:3001"
+      MUSIC_CORE_API_KEY: "${MUSIC_CORE_API_KEY:-}"
+      MUSIC_ENGINE_BASE_URL: "http://music-engine:8600"
+      # Generation is roughly real-time (RTF ~ 1.0), so a 2-minute song needs a
+      # couple of minutes. Allow plenty of headroom for the background job.
+      MUSIC_ENGINE_TIMEOUT_MS: "${MUSIC_ENGINE_TIMEOUT_MS:-900000}"
+    ports:
+      - "${MUSIC_API_HOST_PORT:-3010}:3009"
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3009/api/health', (r) => { r.resume(); process.exit(r.statusCode === 200 ? 0 : 1); }).on('error', () => process.exit(1));"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+    depends_on:
+      - music-engine
+
+  music-engine:
+    build:
+      context: ./engine
+      dockerfile: Dockerfile
+    image: music-engine:local
+    environment:
+      HF_HOME: "/app/hf"
+      HF_TOKEN: "${HF_TOKEN:-}"
+      HEARTMULA_MODEL_PATH: "/app/ckpt"
+      HEARTMULA_VERSION: "3B"
+      # Lazy load keeps HeartMuLa's modules off the GPU between requests so the
+      # engine coexists with ComfyUI/Ollama on the shared RTX 4090. Set to
+      # "false" on a dedicated GPU for faster back-to-back generations.
+      HEARTMULA_LAZY_LOAD: "${HEARTMULA_LAZY_LOAD:-true}"
+      HEARTMULA_DEVICE: "cuda"
+      PYTHONUNBUFFERED: "1"
+    volumes:
+      - heartmula-ckpt:/app/ckpt
+      - heartmula-hf:/app/hf
+    ports:
+      - "${MUSIC_ENGINE_PORT:-8600}:8600"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8600/health',timeout=5).status==200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 300s
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  heartmula-ckpt:
+  heartmula-hf:
+
+networks:
+  default:
+    name: theitemapp
+    external: true

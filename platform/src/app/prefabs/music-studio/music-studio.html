@@ -1,0 +1,102 @@
+<div class="studio">
+  <header class="studio__head">
+    <div class="studio__title">
+      <span class="studio__icon">🎵</span>
+      <h2>Music Studio</h2>
+    </div>
+    <div class="studio__engine">
+      @if (engineReady() === null) {
+        <span class="badge badge--wait">checking engine…</span>
+      } @else if (engineReady()) {
+        <span class="badge badge--ok">engine ready</span>
+      } @else {
+        <span class="badge badge--down" [title]="engineError() || ''">engine warming up</span>
+      }
+    </div>
+  </header>
+
+  <section class="form">
+    <label class="field">
+      <span class="field__label">Title <em>(optional)</em></span>
+      <input class="field__input" type="text" [ngModel]="title()" (ngModelChange)="title.set($event)"
+             placeholder="Auto-named from your style if left blank" />
+    </label>
+
+    <label class="field">
+      <span class="field__label">Style tags</span>
+      <input class="field__input" type="text" [ngModel]="tags()" (ngModelChange)="tags.set($event)"
+             placeholder="e.g. lofi,piano,chill" />
+    </label>
+
+    <div class="presets">
+      @for (preset of stylePresets; track preset) {
+        <button type="button" class="chip" (click)="addPreset(preset)">{{ preset }}</button>
+      }
+    </div>
+
+    <label class="field">
+      <span class="field__label">Lyrics <em>(optional — leave blank for instrumental)</em></span>
+      <textarea class="field__area" rows="6" [ngModel]="lyrics()" (ngModelChange)="lyrics.set($event)"
+                placeholder="[Verse]&#10;The city lights are calling out my name&#10;&#10;[Chorus]&#10;..."></textarea>
+    </label>
+
+    <label class="field field--row">
+      <span class="field__label">Length: <strong>{{ fmtTime(durationSec()) }}</strong></span>
+      <input class="field__range" type="range" min="15" max="240" step="5"
+             [ngModel]="durationSec()" (ngModelChange)="durationSec.set(+$event)" />
+    </label>
+
+    <div class="actions">
+      <button class="btn btn--primary" [disabled]="!canGenerate()" (click)="generate()">
+        @if (state() === 'generating') { Generating… } @else { Generate song }
+      </button>
+      @if (state() === 'generating') {
+        <span class="elapsed">{{ fmtTime(elapsedSec()) }}</span>
+      }
+    </div>
+
+    @if (state() === 'generating') {
+      <div class="status status--busy">
+        <span class="spinner"></span>
+        <span>{{ statusText() }}</span>
+      </div>
+    }
+    @if (state() === 'failed' && errorText()) {
+      <div class="status status--error">⚠ {{ errorText() }}</div>
+    }
+  </section>
+
+  <section class="library">
+    <div class="library__head">
+      <h3>Your tracks</h3>
+      <button class="btn btn--ghost" (click)="refreshTracks()">Refresh</button>
+    </div>
+
+    @if (tracks().length === 0) {
+      <p class="empty">No tracks yet. Generate your first song above.</p>
+    } @else {
+      <ul class="tracklist">
+        @for (t of tracks(); track trackById($index, t)) {
+          <li class="track" [class.track--active]="nowPlayingId() === t._id">
+            <div class="track__main">
+              <div class="track__title">{{ t.title || 'Untitled' }}</div>
+              @if (t.tags) { <div class="track__tags">{{ t.tags }}</div> }
+            </div>
+            <div class="track__right">
+              @if (t.status === 'ready' && audioUrl(t)) {
+                <button class="btn btn--play" (click)="play(t)">▶ Play</button>
+              } @else if (t.status === 'generating') {
+                <span class="badge badge--wait">generating…</span>
+              } @else if (t.status === 'failed') {
+                <span class="badge badge--down" [title]="t.error || ''">failed</span>
+              }
+            </div>
+            @if (nowPlayingId() === t._id && audioUrl(t)) {
+              <audio class="track__audio" [src]="audioUrl(t)" controls autoplay></audio>
+            }
+          </li>
+        }
+      </ul>
+    }
+  </section>
+</div>

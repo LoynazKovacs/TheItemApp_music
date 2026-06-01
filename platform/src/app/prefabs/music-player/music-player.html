@@ -1,0 +1,41 @@
+<div class="player">
+  <header class="player__head">
+    <h3>🎧 Player</h3>
+    <button class="btn--ghost" (click)="refresh()">Refresh</button>
+  </header>
+
+  @if (loading()) {
+    <p class="muted">Loading…</p>
+  } @else if (tracks().length === 0) {
+    <p class="muted">No finished tracks yet. Generate one in the Music Studio.</p>
+  } @else {
+    <ul class="playlist">
+      @for (t of tracks(); track trackById($index, t)) {
+        <li class="row" [class.row--active]="currentId() === t._id" (click)="select(t)">
+          <span class="row__icon">
+            @if (currentId() === t._id && playing()) { ♪ } @else { ▶ }
+          </span>
+          <span class="row__body">
+            <span class="row__title">{{ t.title || 'Untitled' }}</span>
+            @if (t.tags) { <span class="row__tags">{{ t.tags }}</span> }
+          </span>
+        </li>
+      }
+    </ul>
+  }
+
+  <div class="nowplaying" [class.nowplaying--hidden]="!current()">
+    <div class="nowplaying__title">
+      {{ current()?.title || '—' }}
+    </div>
+    <div class="nowplaying__controls">
+      <button class="ctrl" (click)="prev()" title="Previous">⏮</button>
+      <button class="ctrl ctrl--big" (click)="togglePlay()" title="Play/Pause">
+        @if (playing()) { ⏸ } @else { ▶ }
+      </button>
+      <button class="ctrl" (click)="next()" title="Next">⏭</button>
+    </div>
+    <audio #audioEl class="nowplaying__audio" [src]="currentUrl()" (play)="onPlay()" (pause)="onPause()"
+           (ended)="next()" controls></audio>
+  </div>
+</div>

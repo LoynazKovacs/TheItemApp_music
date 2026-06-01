@@ -1,0 +1,21 @@
+[
+  {
+    "_id": {
+      "$oid": "8c0000000000000000000001"
+    },
+    "key": "music",
+    "name": "Music",
+    "description": "AI music generation for TheItemApp. Type a style and (optionally) lyrics, and a HeartMuLa music-generation engine produces a full song with vocals. Ships a Studio prefab for composing tracks and a Player prefab for browsing and playing your generated library, over a single `music_tracks` data model. Backed by a music-api proxy over a self-contained, Apache-2.0 HeartMuLa engine on the GPU.",
+    "icon": "lucide:music",
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ],
+    "cantDelete": false
+  }
+]

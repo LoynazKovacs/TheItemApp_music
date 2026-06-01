@@ -1,0 +1,9 @@
+node_modules
+dist
+out-tsc
+.env
+.env.local
+*.log
+
+.claude/
+.screenshots/
