@@ -82,6 +82,57 @@ def health() -> dict:
     }
 
 
+def _vram_mb() -> float:
+    try:
+        if torch.cuda.is_available():
+            return round(torch.cuda.memory_allocated() / (1024 ** 2), 1)
+    except Exception:
+        pass
+    return 0.0
+
+
+@app.get("/app/resources")
+def app_resources() -> dict:
+    """System-monitor GPU self-report (first-party `app-resources` contract).
+
+    Reports the HeartMuLa workload only while the model is resident, so the
+    monitor attributes 0 when idle (lazy) and the real VRAM during generation.
+    """
+    workloads = []
+    if _pipe is not None:
+        workloads.append({
+            "key": "heartmula",
+            "label": f"HeartMuLa {VERSION}",
+            "vramMB": _vram_mb(),
+            "device": DEVICE,
+            "status": "loaded",
+            "unloadable": True,
+        })
+    return {"workloads": workloads}
+
+
+@app.post("/app/resources/unload/{key}")
+def app_resources_unload(key: str) -> dict:
+    """Drop the pipeline and free VRAM. HeartMuLa is a torch model, so unlike
+    CTranslate2/ComfyUI this genuinely returns memory in-process; it reloads
+    lazily on the next /generate."""
+    global _pipe
+    freed = False
+    # Don't yank the model out from under an in-flight generation.
+    with _gen_lock:
+        if _pipe is not None:
+            _pipe = None
+            freed = True
+    import gc
+    gc.collect()
+    try:
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    except Exception:
+        pass
+    return {"unloaded": key, "success": freed}
+
+
 @app.post("/generate")
 def generate(req: GenerateRequest):
     if not req.lyrics.strip() and not req.tags.strip():
