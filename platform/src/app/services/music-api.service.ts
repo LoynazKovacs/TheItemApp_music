@@ -30,6 +30,14 @@ export type MusicTrack = Readonly<{
   _meta?: { createdAt?: string };
 }>;
 
+export type MusicTag = Readonly<{
+  _id: string;
+  key: string;
+  label: string;
+  category: string;
+  order?: number;
+}>;
+
 export type EngineHealth = Readonly<{
   ok: boolean;
   upstreams?: { engine?: { ok: boolean; modelLoaded?: boolean; error?: string } };
@@ -81,6 +89,20 @@ export class MusicApiService {
         }),
       );
       return Array.isArray(rows) ? (rows as MusicTrack[]) : [];
+    } catch {
+      return [];
+    }
+  }
+
+  /** Load the enabled style-tag catalog, sorted by category then order. */
+  async listTags(): Promise<MusicTag[]> {
+    try {
+      const rows = await firstValueFrom(
+        this.http.get<unknown>('/api/dynamic/music_tags', {
+          params: { _l: 500, _s: 'order', _f: JSON.stringify({ enabled: true }) },
+        }),
+      );
+      return Array.isArray(rows) ? (rows as MusicTag[]) : [];
     } catch {
       return [];
     }

@@ -1,0 +1,1427 @@
+[
+  {
+    "key": "genre-pop",
+    "label": "pop",
+    "category": "genre",
+    "order": 0,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-rock",
+    "label": "rock",
+    "category": "genre",
+    "order": 1,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-indie",
+    "label": "indie",
+    "category": "genre",
+    "order": 2,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-lo-fi",
+    "label": "lo-fi",
+    "category": "genre",
+    "order": 3,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-hip-hop",
+    "label": "hip hop",
+    "category": "genre",
+    "order": 4,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-trap",
+    "label": "trap",
+    "category": "genre",
+    "order": 5,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-rap",
+    "label": "rap",
+    "category": "genre",
+    "order": 6,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-jazz",
+    "label": "jazz",
+    "category": "genre",
+    "order": 7,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-blues",
+    "label": "blues",
+    "category": "genre",
+    "order": 8,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-soul",
+    "label": "soul",
+    "category": "genre",
+    "order": 9,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-funk",
+    "label": "funk",
+    "category": "genre",
+    "order": 10,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-randb",
+    "label": "r&b",
+    "category": "genre",
+    "order": 11,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-electronic",
+    "label": "electronic",
+    "category": "genre",
+    "order": 12,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-edm",
+    "label": "edm",
+    "category": "genre",
+    "order": 13,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-house",
+    "label": "house",
+    "category": "genre",
+    "order": 14,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-techno",
+    "label": "techno",
+    "category": "genre",
+    "order": 15,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-trance",
+    "label": "trance",
+    "category": "genre",
+    "order": 16,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-drum-and-bass",
+    "label": "drum and bass",
+    "category": "genre",
+    "order": 17,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-synthwave",
+    "label": "synthwave",
+    "category": "genre",
+    "order": 18,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-ambient",
+    "label": "ambient",
+    "category": "genre",
+    "order": 19,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-classical",
+    "label": "classical",
+    "category": "genre",
+    "order": 20,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-orchestral",
+    "label": "orchestral",
+    "category": "genre",
+    "order": 21,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-cinematic",
+    "label": "cinematic",
+    "category": "genre",
+    "order": 22,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-folk",
+    "label": "folk",
+    "category": "genre",
+    "order": 23,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-acoustic",
+    "label": "acoustic",
+    "category": "genre",
+    "order": 24,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-country",
+    "label": "country",
+    "category": "genre",
+    "order": 25,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-reggae",
+    "label": "reggae",
+    "category": "genre",
+    "order": 26,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-latin",
+    "label": "latin",
+    "category": "genre",
+    "order": 27,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-bossa-nova",
+    "label": "bossa nova",
+    "category": "genre",
+    "order": 28,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-k-pop",
+    "label": "k-pop",
+    "category": "genre",
+    "order": 29,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-metal",
+    "label": "metal",
+    "category": "genre",
+    "order": 30,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-punk",
+    "label": "punk",
+    "category": "genre",
+    "order": 31,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-gospel",
+    "label": "gospel",
+    "category": "genre",
+    "order": 32,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-disco",
+    "label": "disco",
+    "category": "genre",
+    "order": 33,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "genre-chillout",
+    "label": "chillout",
+    "category": "genre",
+    "order": 34,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-happy",
+    "label": "happy",
+    "category": "mood",
+    "order": 0,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-sad",
+    "label": "sad",
+    "category": "mood",
+    "order": 1,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-melancholic",
+    "label": "melancholic",
+    "category": "mood",
+    "order": 2,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-energetic",
+    "label": "energetic",
+    "category": "mood",
+    "order": 3,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-uplifting",
+    "label": "uplifting",
+    "category": "mood",
+    "order": 4,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-calm",
+    "label": "calm",
+    "category": "mood",
+    "order": 5,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-peaceful",
+    "label": "peaceful",
+    "category": "mood",
+    "order": 6,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-dark",
+    "label": "dark",
+    "category": "mood",
+    "order": 7,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-epic",
+    "label": "epic",
+    "category": "mood",
+    "order": 8,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-romantic",
+    "label": "romantic",
+    "category": "mood",
+    "order": 9,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-dreamy",
+    "label": "dreamy",
+    "category": "mood",
+    "order": 10,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-nostalgic",
+    "label": "nostalgic",
+    "category": "mood",
+    "order": 11,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-aggressive",
+    "label": "aggressive",
+    "category": "mood",
+    "order": 12,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-mysterious",
+    "label": "mysterious",
+    "category": "mood",
+    "order": 13,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-hopeful",
+    "label": "hopeful",
+    "category": "mood",
+    "order": 14,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-emotional",
+    "label": "emotional",
+    "category": "mood",
+    "order": 15,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-relaxing",
+    "label": "relaxing",
+    "category": "mood",
+    "order": 16,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-intense",
+    "label": "intense",
+    "category": "mood",
+    "order": 17,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-playful",
+    "label": "playful",
+    "category": "mood",
+    "order": 18,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "mood-triumphant",
+    "label": "triumphant",
+    "category": "mood",
+    "order": 19,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-piano",
+    "label": "piano",
+    "category": "instrument",
+    "order": 0,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-acoustic-guitar",
+    "label": "acoustic guitar",
+    "category": "instrument",
+    "order": 1,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-electric-guitar",
+    "label": "electric guitar",
+    "category": "instrument",
+    "order": 2,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-violin",
+    "label": "violin",
+    "category": "instrument",
+    "order": 3,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-cello",
+    "label": "cello",
+    "category": "instrument",
+    "order": 4,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-saxophone",
+    "label": "saxophone",
+    "category": "instrument",
+    "order": 5,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-trumpet",
+    "label": "trumpet",
+    "category": "instrument",
+    "order": 6,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-flute",
+    "label": "flute",
+    "category": "instrument",
+    "order": 7,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-drums",
+    "label": "drums",
+    "category": "instrument",
+    "order": 8,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-synthesizer",
+    "label": "synthesizer",
+    "category": "instrument",
+    "order": 9,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-bass",
+    "label": "bass",
+    "category": "instrument",
+    "order": 10,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-organ",
+    "label": "organ",
+    "category": "instrument",
+    "order": 11,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-harp",
+    "label": "harp",
+    "category": "instrument",
+    "order": 12,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-strings",
+    "label": "strings",
+    "category": "instrument",
+    "order": 13,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-choir",
+    "label": "choir",
+    "category": "instrument",
+    "order": 14,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "instrument-808",
+    "label": "808",
+    "category": "instrument",
+    "order": 15,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "vocal-male-vocal",
+    "label": "male vocal",
+    "category": "vocal",
+    "order": 0,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "vocal-female-vocal",
+    "label": "female vocal",
+    "category": "vocal",
+    "order": 1,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "vocal-duet",
+    "label": "duet",
+    "category": "vocal",
+    "order": 2,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "vocal-choir-vocals",
+    "label": "choir vocals",
+    "category": "vocal",
+    "order": 3,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "vocal-rap-vocals",
+    "label": "rap vocals",
+    "category": "vocal",
+    "order": 4,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "vocal-instrumental",
+    "label": "instrumental",
+    "category": "vocal",
+    "order": 5,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "vocal-soft-vocals",
+    "label": "soft vocals",
+    "category": "vocal",
+    "order": 6,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "vocal-powerful-vocals",
+    "label": "powerful vocals",
+    "category": "vocal",
+    "order": 7,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "tempo-upbeat",
+    "label": "upbeat",
+    "category": "tempo",
+    "order": 0,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "tempo-slow",
+    "label": "slow",
+    "category": "tempo",
+    "order": 1,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "tempo-fast",
+    "label": "fast",
+    "category": "tempo",
+    "order": 2,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "tempo-mid-tempo",
+    "label": "mid-tempo",
+    "category": "tempo",
+    "order": 3,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "tempo-groovy",
+    "label": "groovy",
+    "category": "tempo",
+    "order": 4,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "tempo-driving",
+    "label": "driving",
+    "category": "tempo",
+    "order": 5,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "tempo-laid-back",
+    "label": "laid-back",
+    "category": "tempo",
+    "order": 6,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "tempo-danceable",
+    "label": "danceable",
+    "category": "tempo",
+    "order": 7,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "production-vintage",
+    "label": "vintage",
+    "category": "production",
+    "order": 0,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "production-modern",
+    "label": "modern",
+    "category": "production",
+    "order": 1,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "production-warm",
+    "label": "warm",
+    "category": "production",
+    "order": 2,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "production-reverb",
+    "label": "reverb",
+    "category": "production",
+    "order": 3,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "production-lush",
+    "label": "lush",
+    "category": "production",
+    "order": 4,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "production-minimal",
+    "label": "minimal",
+    "category": "production",
+    "order": 5,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "production-atmospheric",
+    "label": "atmospheric",
+    "category": "production",
+    "order": 6,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  },
+  {
+    "key": "production-distorted",
+    "label": "distorted",
+    "category": "production",
+    "order": 7,
+    "enabled": true,
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ]
+  }
+]

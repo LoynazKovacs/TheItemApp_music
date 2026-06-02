@@ -25,14 +25,20 @@
     <label class="field">
       <span class="field__label">Style tags</span>
       <input class="field__input" type="text" [ngModel]="tags()" (ngModelChange)="tags.set($event)"
-             placeholder="e.g. lofi,piano,chill" />
+             placeholder="Pick chips below, or type your own — e.g. lo-fi, piano, chill" />
     </label>
 
-    <div class="presets">
-      @for (preset of stylePresets; track preset) {
-        <button type="button" class="chip" (click)="addPreset(preset)">{{ preset }}</button>
-      }
-    </div>
+    @for (group of tagGroups(); track group.category) {
+      <div class="taggroup">
+        <span class="taggroup__label">{{ group.category }}</span>
+        <div class="taggroup__chips">
+          @for (t of group.tags; track t._id) {
+            <button type="button" class="chip" [class.chip--on]="isTagSelected(t.label)"
+                    (click)="toggleTag(t.label)">{{ t.label }}</button>
+          }
+        </div>
+      </div>
+    }
 
     <label class="field">
       <span class="field__label">Lyrics <em>(optional — leave blank for instrumental)</em></span>

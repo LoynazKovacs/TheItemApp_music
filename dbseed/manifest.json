@@ -40,6 +40,13 @@
       "filter": { "appId": "<thisAppId>" }
     },
     {
+      "collection": "music_tags",
+      "file": "data/music_tags.json",
+      "matchBy": "key",
+      "installMode": "shared",
+      "exportFields": ["key", "label", "category", "order", "enabled", "groupIds"]
+    },
+    {
       "collection": "prefabs",
       "file": "prefabs.json",
       "matchBy": "_id",

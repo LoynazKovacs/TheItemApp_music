@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MusicApiService, type MusicTrack } from '../../services/music-api.service';
+import { MusicApiService, type MusicTrack, type MusicTag } from '../../services/music-api.service';
 
 type GenState = 'idle' | 'generating' | 'ready' | 'failed';
 
@@ -19,7 +19,7 @@ export class MusicStudioComponent implements OnInit, OnDestroy {
 
   // Form state.
   title = signal<string>('');
-  tags = signal<string>('lofi,piano,chill,instrumental');
+  tags = signal<string>('lo-fi, piano, ambient');
   lyrics = signal<string>('');
   durationSec = signal<number>(60);
 
@@ -40,19 +40,56 @@ export class MusicStudioComponent implements OnInit, OnDestroy {
   private pollTimer: ReturnType<typeof setInterval> | null = null;
   private elapsedTimer: ReturnType<typeof setInterval> | null = null;
 
-  // Quick-pick style chips.
-  readonly stylePresets = [
-    'lofi,piano,chill',
-    'epic,cinematic,orchestral',
-    'synthwave,retro,80s',
-    'acoustic,folk,warm',
-    'edm,dance,energetic',
-    'jazz,smooth,saxophone',
-  ];
+  // Style-tag catalog (loaded from the music_tags model), grouped by category.
+  tagGroups = signal<readonly { category: string; tags: readonly MusicTag[] }[]>([]);
+  private readonly categoryOrder = ['genre', 'mood', 'instrument', 'vocal', 'tempo', 'production'];
 
   ngOnInit(): void {
     void this.refreshHealth();
     void this.refreshTracks();
+    void this.loadTags();
+  }
+
+  async loadTags(): Promise<void> {
+    const tags = await this.api.listTags();
+    const byCat = new Map<string, MusicTag[]>();
+    for (const t of tags) {
+      const arr = byCat.get(t.category) ?? [];
+      arr.push(t);
+      byCat.set(t.category, arr);
+    }
+    const ordered = [...byCat.keys()].sort(
+      (a, b) => (this.categoryOrder.indexOf(a) + 1 || 99) - (this.categoryOrder.indexOf(b) + 1 || 99),
+    );
+    this.tagGroups.set(
+      ordered.map((category) => ({
+        category,
+        tags: (byCat.get(category) ?? []).sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
+      })),
+    );
+    this.cdr.markForCheck();
+  }
+
+  /** Tokens currently in the comma-separated tags string (the source of truth). */
+  private tokens(): string[] {
+    return this.tags()
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean);
+  }
+
+  isTagSelected(label: string): boolean {
+    const l = label.toLowerCase();
+    return this.tokens().some((t) => t.toLowerCase() === l);
+  }
+
+  toggleTag(label: string): void {
+    const l = label.toLowerCase();
+    const toks = this.tokens();
+    const next = toks.some((t) => t.toLowerCase() === l)
+      ? toks.filter((t) => t.toLowerCase() !== l)
+      : [...toks, label];
+    this.tags.set(next.join(', '));
   }
 
   ngOnDestroy(): void {
@@ -70,10 +107,6 @@ export class MusicStudioComponent implements OnInit, OnDestroy {
     const rows = await this.api.listTracks(100);
     this.tracks.set(rows);
     this.cdr.markForCheck();
-  }
-
-  addPreset(preset: string): void {
-    this.tags.set(preset);
   }
 
   canGenerate(): boolean {
