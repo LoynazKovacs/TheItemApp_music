@@ -20,8 +20,7 @@ services:
     build:
       context: .
       dockerfile: platform/Dockerfile
-    ports:
-      - "${MUSIC_WEB_PORT:-4211}:80"
+    # No host port: served only through core Caddy (/mf/music/*).
     restart: unless-stopped
 
   music-api:
@@ -39,8 +38,7 @@ services:
       # Generation is roughly real-time (RTF ~ 1.0), so a 2-minute song needs a
       # couple of minutes. Allow plenty of headroom for the background job.
       MUSIC_ENGINE_TIMEOUT_MS: "${MUSIC_ENGINE_TIMEOUT_MS:-900000}"
-    ports:
-      - "${MUSIC_API_HOST_PORT:-3010}:3009"
+    # No host port: reached only in-network via core Caddy (/music-api/*).
     healthcheck:
       test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:3009/api/health', (r) => { r.resume(); process.exit(r.statusCode === 200 ? 0 : 1); }).on('error', () => process.exit(1));"]
       interval: 10s
@@ -70,8 +68,8 @@ services:
     volumes:
       - heartmula-ckpt:/app/ckpt
       - heartmula-hf:/app/hf
-    ports:
-      - "${MUSIC_ENGINE_PORT:-8600}:8600"
+    # No host port: engine reachable only by music-api on the internal
+    # theitemapp network (http://music-engine:8600).
     healthcheck:
       test: ["CMD", "python3", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8600/health',timeout=5).status==200 else 1)"]
       interval: 30s
