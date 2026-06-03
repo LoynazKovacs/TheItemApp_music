@@ -20,7 +20,7 @@ async function main(): Promise<void> {
     bodyLimit: 10 * 1024 * 1024,
   });
 
-  await app.register(cors, { origin: true, credentials: true });
+  await app.register(cors, { origin: false });
 
   const engine = new MusicEngineClient({
     baseUrl: config.engineBaseUrl,
