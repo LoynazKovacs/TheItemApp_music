@@ -1,0 +1,82 @@
+[
+  {
+    "_id": {
+      "$oid": "6a246f72644b16df299cb30c"
+    },
+    "modelId": {
+      "$oid": "8c0000000000000000030001"
+    },
+    "name": "Tracks Library",
+    "groupBy": [],
+    "sortFields": [
+      {
+        "field": "_meta.createdAt",
+        "dir": "desc"
+      }
+    ],
+    "rowDensity": "comfortable",
+    "showAvatar": true,
+    "avatarShape": "square",
+    "showTitle": true,
+    "titleField": "title",
+    "titleWeight": "bold",
+    "showSubtitle": true,
+    "subtitleField": "tags",
+    "subtitleLines": 2,
+    "showRightTop": true,
+    "rightTopField": "_meta.createdAt",
+    "rightTopActionKeys": [],
+    "showRightMiddle": true,
+    "rightMiddleField": "durationMs",
+    "rightMiddleKind": "text",
+    "rightMiddleActionKeys": [],
+    "showRightBottom": true,
+    "rightBottomField": "status",
+    "rightBottomKind": "badge",
+    "rightBottomActionKeys": [],
+    "isDefault": false,
+    "order": 10,
+    "appId": {
+      "$oid": "8c0000000000000000000001"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a246f74644b16df299cb78b"
+    },
+    "modelId": {
+      "$oid": "8c0000000000000000030002"
+    },
+    "name": "Style Tags by Category",
+    "groupBy": [
+      "category"
+    ],
+    "sortFields": [
+      {
+        "field": "order",
+        "dir": "asc"
+      }
+    ],
+    "rowDensity": "compact",
+    "showAvatar": true,
+    "avatarShape": "square",
+    "showBadge": true,
+    "badgeField": "enabled",
+    "showTitle": true,
+    "titleField": "label",
+    "titleWeight": "bold",
+    "showSubtitle": true,
+    "subtitleField": "key",
+    "rightTopActionKeys": [],
+    "rightMiddleActionKeys": [],
+    "showRightBottom": true,
+    "rightBottomField": "order",
+    "rightBottomKind": "text",
+    "rightBottomActionKeys": [],
+    "isDefault": false,
+    "order": 10,
+    "appId": {
+      "$oid": "8c0000000000000000000001"
+    }
+  }
+]

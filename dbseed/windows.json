@@ -1,6 +1,315 @@
 [
   {
     "_id": {
+      "$oid": "6a246f9b644b16df299ccab5"
+    },
+    "dashboardId": {
+      "$oid": "8c0000000000000000010001"
+    },
+    "title": "Music at a glance",
+    "icon": "lucide:gauge",
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ],
+    "modelId": {
+      "$oid": "8c0000000000000000030001"
+    },
+    "prefabId": {
+      "$oid": "700000000000000000060019"
+    },
+    "prefabConfig": {
+      "collection": "music_tracks",
+      "ui": {
+        "kpi": {
+          "columns": 6,
+          "metrics": [
+            {
+              "label": "Tracks",
+              "icon": "lucide:music",
+              "op": "count",
+              "collection": "music_tracks",
+              "color": "#7c3aed"
+            },
+            {
+              "label": "Ready",
+              "icon": "lucide:circle-check",
+              "op": "count",
+              "collection": "music_tracks",
+              "query": {
+                "status": "ready"
+              },
+              "color": "#16a34a"
+            },
+            {
+              "label": "Generating",
+              "icon": "lucide:loader",
+              "op": "count",
+              "collection": "music_tracks",
+              "query": {
+                "status": "generating"
+              },
+              "color": "#d97706"
+            },
+            {
+              "label": "Failed",
+              "icon": "lucide:circle-x",
+              "op": "count",
+              "collection": "music_tracks",
+              "query": {
+                "status": "failed"
+              },
+              "color": "#dc2626"
+            },
+            {
+              "label": "Total Length",
+              "icon": "lucide:timer",
+              "op": "sum",
+              "field": "durationMs",
+              "collection": "music_tracks",
+              "format": "compact",
+              "suffix": " ms",
+              "color": "#2563eb"
+            },
+            {
+              "label": "Style Tags",
+              "icon": "lucide:tags",
+              "op": "count",
+              "collection": "music_tags",
+              "color": "#0891b2"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a246f9c644b16df299ccab9"
+    },
+    "dashboardId": {
+      "$oid": "8c0000000000000000010001"
+    },
+    "title": "Filters",
+    "icon": "lucide:filter",
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ],
+    "modelId": {
+      "$oid": "8c0000000000000000030001"
+    },
+    "prefabId": {
+      "$oid": "700000000000000000060015"
+    },
+    "prefabConfig": {
+      "collection": "music_tracks"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a246f9e644b16df299ccad8"
+    },
+    "dashboardId": {
+      "$oid": "8c0000000000000000010001"
+    },
+    "title": "Track Library",
+    "icon": "lucide:folder-tree",
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ],
+    "modelId": {
+      "$oid": "8c0000000000000000030001"
+    },
+    "prefabId": {
+      "$oid": "70000000000000000006000b"
+    },
+    "prefabConfig": {
+      "collection": "music_tracks",
+      "ui": {
+        "tree": {
+          "viewId": {
+            "$oid": "6a246f72644b16df299cb30c"
+          }
+        }
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a246fa0644b16df299ccb3c"
+    },
+    "dashboardId": {
+      "$oid": "8c0000000000000000010001"
+    },
+    "title": "Tracks by Status",
+    "icon": "lucide:pie-chart",
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ],
+    "modelId": {
+      "$oid": "8c0000000000000000030001"
+    },
+    "prefabId": {
+      "$oid": "700000000000000000060008"
+    },
+    "prefabConfig": {
+      "collection": "music_tracks",
+      "query": {},
+      "ui": {
+        "chart": {
+          "viewId": {
+            "$oid": "6a246f77644b16df299cb7a5"
+          }
+        },
+        "filterBar": {
+          "showActiveFiltersTop": false
+        }
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a246fa3644b16df299ccfbe"
+    },
+    "dashboardId": {
+      "$oid": "8c0000000000000000010001"
+    },
+    "title": "Status Breakdown",
+    "icon": "lucide:table-2",
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ],
+    "modelId": {
+      "$oid": "8c0000000000000000030001"
+    },
+    "prefabId": {
+      "$oid": "700000000000000000060007"
+    },
+    "prefabConfig": {
+      "collection": "music_tracks",
+      "aggregation": {
+        "rows": [
+          "status"
+        ],
+        "columns": [],
+        "values": [
+          {
+            "op": "count",
+            "field": "_id",
+            "as": "count"
+          },
+          {
+            "op": "sum",
+            "field": "durationMs",
+            "as": "totalMs"
+          },
+          {
+            "op": "avg",
+            "field": "durationMs",
+            "as": "avgMs"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a246fa5644b16df299ccfd3"
+    },
+    "dashboardId": {
+      "$oid": "8c0000000000000000010001"
+    },
+    "title": "Style Tag Catalog",
+    "icon": "lucide:tags",
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ],
+    "modelId": {
+      "$oid": "8c0000000000000000030002"
+    },
+    "prefabId": {
+      "$oid": "70000000000000000006000b"
+    },
+    "prefabConfig": {
+      "collection": "music_tags",
+      "ui": {
+        "tree": {
+          "viewId": {
+            "$oid": "6a246f74644b16df299cb78b"
+          }
+        }
+      }
+    }
+  },
+  {
+    "_id": {
+      "$oid": "6a246fa6644b16df299ccfdf"
+    },
+    "dashboardId": {
+      "$oid": "8c0000000000000000010001"
+    },
+    "title": "Style Tags by Category",
+    "icon": "lucide:bar-chart-3",
+    "groupIds": [
+      {
+        "$oid": "7000000000000000001d0001"
+      },
+      {
+        "$oid": "7000000000000000001d0002"
+      }
+    ],
+    "modelId": {
+      "$oid": "8c0000000000000000030002"
+    },
+    "prefabId": {
+      "$oid": "700000000000000000060008"
+    },
+    "prefabConfig": {
+      "collection": "music_tags",
+      "query": {},
+      "ui": {
+        "chart": {
+          "viewId": {
+            "$oid": "6a246f7a644b16df299cb7bf"
+          }
+        },
+        "filterBar": {
+          "showActiveFiltersTop": false
+        }
+      }
+    }
+  },
+  {
+    "_id": {
       "$oid": "8c0000000000000000020001"
     },
     "dashboardId": {

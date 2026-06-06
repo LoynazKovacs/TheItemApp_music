@@ -6,8 +6,8 @@
     "appId": {
       "$oid": "8c0000000000000000000001"
     },
-    "name": "Music Studio",
-    "icon": "lucide:music",
+    "name": "Overview",
+    "icon": "lucide:layout-dashboard",
     "isHome": true,
     "statusId": {
       "$oid": "700000000000000000140001"
@@ -21,46 +21,89 @@
       }
     ],
     "gridsterConfigId": {
-      "$oid": "700000000000000000050004"
+      "$oid": "700000000000000000050003"
     },
     "tiles": [
       {
         "windowId": {
-          "$oid": "8c0000000000000000020001"
+          "$oid": "6a246f9b644b16df299ccab5"
         },
         "x": 0,
         "y": 0,
-        "cols": 3,
-        "rows": 4,
-        "slot": {
-          "key": "",
-          "title": "",
-          "collapsedByDefault": false,
-          "autoShowOnIntent": true,
-          "icon": "",
-          "render": { "prefabKey": "", "collection": "", "recordId": "" },
-          "accepts": [],
-          "whenHidden": { "absorbedBy": [] }
-        }
+        "cols": 18,
+        "rows": 4
+      },
+      {
+        "windowId": {
+          "$oid": "6a246f9c644b16df299ccab9"
+        },
+        "x": 18,
+        "y": 0,
+        "cols": 6,
+        "rows": 4
+      },
+      {
+        "windowId": {
+          "$oid": "6a246f9e644b16df299ccad8"
+        },
+        "x": 0,
+        "y": 4,
+        "cols": 8,
+        "rows": 9
       },
       {
         "windowId": {
           "$oid": "8c0000000000000000020002"
         },
-        "x": 3,
-        "y": 0,
-        "cols": 2,
-        "rows": 4,
-        "slot": {
-          "key": "",
-          "title": "",
-          "collapsedByDefault": false,
-          "autoShowOnIntent": true,
-          "icon": "",
-          "render": { "prefabKey": "", "collection": "", "recordId": "" },
-          "accepts": [],
-          "whenHidden": { "absorbedBy": [] }
-        }
+        "x": 8,
+        "y": 4,
+        "cols": 16,
+        "rows": 9
+      },
+      {
+        "windowId": {
+          "$oid": "8c0000000000000000020001"
+        },
+        "x": 0,
+        "y": 13,
+        "cols": 10,
+        "rows": 6
+      },
+      {
+        "windowId": {
+          "$oid": "6a246fa0644b16df299ccb3c"
+        },
+        "x": 10,
+        "y": 13,
+        "cols": 6,
+        "rows": 6
+      },
+      {
+        "windowId": {
+          "$oid": "6a246fa3644b16df299ccfbe"
+        },
+        "x": 16,
+        "y": 13,
+        "cols": 8,
+        "rows": 6
+      },
+      {
+        "windowId": {
+          "$oid": "6a246fa5644b16df299ccfd3"
+        },
+        "x": 0,
+        "y": 19,
+        "cols": 8,
+        "rows": 8
+      },
+      {
+        "windowId": {
+          "$oid": "6a246fa6644b16df299ccfdf"
+        },
+        "x": 8,
+        "y": 19,
+        "cols": 16,
+        "rows": 8
       }
     ]
   },
@@ -103,9 +146,15 @@
           "collapsedByDefault": false,
           "autoShowOnIntent": true,
           "icon": "",
-          "render": { "prefabKey": "", "collection": "", "recordId": "" },
+          "render": {
+            "prefabKey": "",
+            "collection": "",
+            "recordId": ""
+          },
           "accepts": [],
-          "whenHidden": { "absorbedBy": [] }
+          "whenHidden": {
+            "absorbedBy": []
+          }
         }
       },
       {
@@ -122,9 +171,15 @@
           "collapsedByDefault": false,
           "autoShowOnIntent": true,
           "icon": "",
-          "render": { "prefabKey": "", "collection": "", "recordId": "" },
+          "render": {
+            "prefabKey": "",
+            "collection": "",
+            "recordId": ""
+          },
           "accepts": [],
-          "whenHidden": { "absorbedBy": [] }
+          "whenHidden": {
+            "absorbedBy": []
+          }
         }
       }
     ]
