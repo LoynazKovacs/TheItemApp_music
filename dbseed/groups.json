@@ -1,0 +1,44 @@
+[
+  {
+    "_id": {
+      "$oid": "8c0000000000000000040001"
+    },
+    "key": "music_admin",
+    "keyLower": "music_admin",
+    "name": "Music Admin",
+    "description": "Full administrative access to Music: manage style tags, view and delete any track, oversee generation.",
+    "permissions": [],
+    "appId": {
+      "$oid": "8c0000000000000000000001"
+    },
+    "systemManaged": true
+  },
+  {
+    "_id": {
+      "$oid": "8c0000000000000000040002"
+    },
+    "key": "music_editor",
+    "keyLower": "music_editor",
+    "name": "Music Editor",
+    "description": "Editorial access to Music: create and edit style tags, generate tracks.",
+    "permissions": [],
+    "appId": {
+      "$oid": "8c0000000000000000000001"
+    },
+    "systemManaged": true
+  },
+  {
+    "_id": {
+      "$oid": "8c0000000000000000040003"
+    },
+    "key": "music_viewer",
+    "keyLower": "music_viewer",
+    "name": "Music Viewer",
+    "description": "Read-only access to Music: view tracks and style tags.",
+    "permissions": [],
+    "appId": {
+      "$oid": "8c0000000000000000000001"
+    },
+    "systemManaged": true
+  }
+]
