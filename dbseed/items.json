@@ -11,8 +11,8 @@
     "description": "Songs generated in the Music app. Each row captures the prompt (style tags + optional lyrics) and, once the HeartMuLa engine finishes, links `audioFileId` to the rendered audio stored in core's `files` collection. The `status` field tracks the async generation lifecycle (generating → ready / failed).",
     "ai": {
       "purpose": "Stores AI-generated music: the prompt (style `tags` and optional `lyrics`) plus the rendered audio (as a `files` row) and the generation status.",
-      "howItWorks": "The `MusicStudioPrefab` POSTs `{title, lyrics, tags, durationMs}` to `/music-api/api/generate`. The music-api immediately creates a `music_tracks` row with `status: generating` and returns its id, then runs HeartMuLa in the background. When generation completes it uploads the audio to core's `/api/files/uploadDirect` and patches the row to `status: ready` with `audioFileId` set; on error it sets `status: failed` and `error`. The frontend polls the row until it leaves the `generating` state.",
-      "manipulation": "Create rows through the Studio prefab (which drives the generation pipeline). You can edit `title` freely. Do not hand-edit `status`, `audioFileId`, or `error` — they are managed by the generation job. Delete a row to remove it from the library (this does NOT delete the underlying `files` audio).",
+      "howItWorks": "The `MusicStudioPrefab` POSTs `{title, lyrics, tags, durationMs}` to `/music-api/api/generate`. The music-api immediately creates a `music_tracks` row with `status: generating` and returns its id, then runs HeartMuLa in the background. When generation completes it uploads the audio to core's `/api/files/uploadDirect` and patches the row to `status: ready` with `audioFileId` set; on error it sets `status: failed` and `error`. The frontend polls the row until it leaves the `generating` state. Each row is owned by the user who triggered generation (`userId` auto-stamped from their JWT); x-rls ensures users only see their own tracks. The music-api functional user (music_admin) bypasses row-security so it can always patch any row during background generation.",
+      "manipulation": "Create rows through the Studio prefab (which drives the generation pipeline). You can edit `title` freely. Do not hand-edit `status`, `audioFileId`, `error`, or `userId` — they are managed by the generation job and the platform. Delete a row to remove it from the library (this does NOT delete the underlying `files` audio).",
       "outcomes": [
         {
           "outcome": "Generate a song",
@@ -21,7 +21,8 @@
       ],
       "warnings": [
         "Generation is roughly real-time — a 2-minute song takes ~2 minutes. A row can sit in `generating` for a while; that is expected.",
-        "Deleting a `music_tracks` row does NOT delete the underlying `files` audio record. Delete the file separately if needed."
+        "Deleting a `music_tracks` row does NOT delete the underlying `files` audio record. Delete the file separately if needed.",
+        "Row-security (x-rls on `userId`) means each user only sees their own tracks. The music_admin group bypasses this for backend processing."
       ]
     },
     "icon": "lucide:music",
@@ -109,6 +110,15 @@
             "format": "textarea"
           }
         },
+        "userId": {
+          "type": "string",
+          "title": "Owner",
+          "description": "User who owns this track. Auto-stamped on creation from the request identity by x-rls; row-security anchor — each user only sees their own tracks.",
+          "x-ref": "users",
+          "x-ui": {
+            "readonly": true
+          }
+        },
         "groupIds": {
           "type": "array",
           "title": "Groups",
@@ -148,7 +158,13 @@
       "read": {
         "groupIds": [
           {
-            "$oid": "7000000000000000001d0001"
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
+          },
+          {
+            "$oid": "8c0000000000000000040003"
           },
           {
             "$oid": "7000000000000000001d0002"
@@ -158,7 +174,10 @@
       "create": {
         "groupIds": [
           {
-            "$oid": "7000000000000000001d0001"
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
           },
           {
             "$oid": "7000000000000000001d0002"
@@ -168,7 +187,10 @@
       "edit": {
         "groupIds": [
           {
-            "$oid": "7000000000000000001d0001"
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
           },
           {
             "$oid": "7000000000000000001d0002"
@@ -178,13 +200,17 @@
       "delete": {
         "groupIds": [
           {
-            "$oid": "7000000000000000001d0001"
+            "$oid": "8c0000000000000000040001"
           },
           {
             "$oid": "7000000000000000001d0002"
           }
         ]
       }
+    },
+    "x-rls": {
+      "field": "userId",
+      "bypassGroups": ["music_admin"]
     },
     "tier": 3,
     "kind": "data"
@@ -299,7 +325,13 @@
       "read": {
         "groupIds": [
           {
-            "$oid": "7000000000000000001d0001"
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
+          },
+          {
+            "$oid": "8c0000000000000000040003"
           },
           {
             "$oid": "7000000000000000001d0002"
@@ -309,21 +341,27 @@
       "create": {
         "groupIds": [
           {
-            "$oid": "7000000000000000001d0001"
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
           }
         ]
       },
       "edit": {
         "groupIds": [
           {
-            "$oid": "7000000000000000001d0001"
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
           }
         ]
       },
       "delete": {
         "groupIds": [
           {
-            "$oid": "7000000000000000001d0001"
+            "$oid": "8c0000000000000000040001"
           }
         ]
       }

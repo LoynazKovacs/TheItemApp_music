@@ -6,6 +6,18 @@
   "requiresCore": true,
   "collections": [
     {
+      "collection": "groups",
+      "file": "groups.json",
+      "matchBy": "keyLower",
+      "installMode": "shared",
+      "exportFields": [
+        "key",
+        "name",
+        "description",
+        "permissions"
+      ]
+    },
+    {
       "collection": "apps",
       "file": "apps.json",
       "matchBy": "key",
@@ -33,6 +45,7 @@
         "ui",
         "api",
         "auth",
+        "x-rls",
         "tier",
         "kind",
         "meta"
