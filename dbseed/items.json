@@ -1,6 +1,173 @@
 [
   {
     "_id": {
+      "$oid": "8c0000000000000000030002"
+    },
+    "key": "music_tags",
+    "collection": "music_tags",
+    "title": "Style Tags",
+    "titleSingular": "Style Tag",
+    "titlePlural": "Style Tags",
+    "description": "Curated vocabulary of style descriptors for music generation — genres, moods, instruments, vocals, tempo and production feel. The Music Studio loads enabled tags grouped by `category` and presents them as a chip picker; the selected labels are joined into the comma-separated `tags` string sent to the HeartMuLa engine.",
+    "ai": {
+      "purpose": "Lookup catalog of selectable style tags shown as chips in the Music Studio. Each row's `label` is the exact text fed to the generator.",
+      "howItWorks": "The Studio prefab GETs enabled `music_tags` (sorted by category then order) and renders them as toggleable chips grouped by `category`. Selecting chips composes the comma-separated `tags` string on the `music_tracks` row.",
+      "manipulation": "Add a tag by creating a row with a unique `key`, a `label` (the literal text the engine sees, e.g. `lo-fi`, `female vocal`), and a `category`. Use `enabled=false` to hide a tag from the picker without deleting it. `order` controls position within its category group.",
+      "outcomes": [
+        {
+          "outcome": "Add a new selectable style",
+          "how": "Create a `music_tags` row with `label` set to the descriptor (e.g. `phonk`), pick a `category` (e.g. `genre`), and leave `enabled=true`. It appears as a chip in the Studio immediately."
+        }
+      ],
+      "warnings": [
+        "`label` is sent verbatim to the model — keep it a clean, lowercase descriptor for best results.",
+        "`key` must be unique across the catalog (it is the seed match key)."
+      ]
+    },
+    "icon": "lucide:tags",
+    "appId": {
+      "$oid": "8c0000000000000000000001"
+    },
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key",
+        "label"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "title": "Key",
+          "description": "Stable unique slug for this tag (e.g. `lo-fi`, `female-vocal`). Used as the seed match key.",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "label": {
+          "type": "string",
+          "title": "Label",
+          "description": "The literal style descriptor sent to the generator and shown on the chip (e.g. `lo-fi`, `female vocal`, `epic`).",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "category": {
+          "type": "string",
+          "title": "Category",
+          "description": "Grouping used to organise the chip picker.",
+          "enum": [
+            "genre",
+            "mood",
+            "instrument",
+            "vocal",
+            "tempo",
+            "production"
+          ],
+          "default": "genre"
+        },
+        "order": {
+          "type": "integer",
+          "title": "Order",
+          "description": "Ascending position within the category group.",
+          "minimum": 0,
+          "default": 0
+        },
+        "enabled": {
+          "type": "boolean",
+          "title": "Enabled",
+          "description": "When false, the tag is hidden from the Studio picker without deleting the row.",
+          "default": true
+        },
+        "groupIds": {
+          "type": "array",
+          "title": "Groups",
+          "description": "Row-security scope.",
+          "items": {
+            "type": "string",
+            "x-ref": "groups"
+          }
+        }
+      }
+    },
+    "ui": {
+      "display": {
+        "templates": [
+          "{{label}}",
+          "{{key}}"
+        ]
+      },
+      "prefabs": {
+        "list": "list",
+        "edit": "edit",
+        "show": "show"
+      },
+      "list": {
+        "headerActions": [
+          {
+            "kind": "new"
+          },
+          {
+            "kind": "refresh"
+          },
+          {
+            "kind": "deleteFiltered"
+          }
+        ]
+      }
+    },
+    "api": {
+      "crud": true,
+      "realtime": true
+    },
+    "auth": {
+      "read": {
+        "groupIds": [
+          {
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
+          },
+          {
+            "$oid": "8c0000000000000000040003"
+          },
+          {
+            "$oid": "7000000000000000001d0002"
+          }
+        ]
+      },
+      "create": {
+        "groupIds": [
+          {
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
+          }
+        ]
+      },
+      "edit": {
+        "groupIds": [
+          {
+            "$oid": "8c0000000000000000040001"
+          },
+          {
+            "$oid": "8c0000000000000000040002"
+          }
+        ]
+      },
+      "delete": {
+        "groupIds": [
+          {
+            "$oid": "8c0000000000000000040001"
+          }
+        ]
+      }
+    },
+    "tier": 3,
+    "kind": "lookup"
+  },
+  {
+    "_id": {
       "$oid": "8c0000000000000000030001"
     },
     "key": "music_tracks",
@@ -32,7 +199,9 @@
     "schema": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["title"],
+      "required": [
+        "title"
+      ],
       "properties": {
         "title": {
           "type": "string",
@@ -59,7 +228,11 @@
           "type": "string",
           "title": "Status",
           "description": "Generation lifecycle state. Backend-managed: `generating` while the engine renders, `ready` once audio is attached, `failed` if generation errored.",
-          "enum": ["generating", "ready", "failed"],
+          "enum": [
+            "generating",
+            "ready",
+            "failed"
+          ],
           "default": "generating",
           "x-ui": {
             "readonly": true
@@ -132,7 +305,9 @@
     },
     "ui": {
       "display": {
-        "templates": ["{{title}}"]
+        "templates": [
+          "{{title}}"
+        ]
       },
       "prefabs": {
         "list": "list",
@@ -210,163 +385,11 @@
     },
     "x-rls": {
       "field": "userId",
-      "bypassGroups": ["music_admin"]
+      "bypassGroups": [
+        "music_admin"
+      ]
     },
     "tier": 3,
     "kind": "data"
-  },
-  {
-    "_id": {
-      "$oid": "8c0000000000000000030002"
-    },
-    "key": "music_tags",
-    "collection": "music_tags",
-    "title": "Style Tags",
-    "titleSingular": "Style Tag",
-    "titlePlural": "Style Tags",
-    "description": "Curated vocabulary of style descriptors for music generation — genres, moods, instruments, vocals, tempo and production feel. The Music Studio loads enabled tags grouped by `category` and presents them as a chip picker; the selected labels are joined into the comma-separated `tags` string sent to the HeartMuLa engine.",
-    "ai": {
-      "purpose": "Lookup catalog of selectable style tags shown as chips in the Music Studio. Each row's `label` is the exact text fed to the generator.",
-      "howItWorks": "The Studio prefab GETs enabled `music_tags` (sorted by category then order) and renders them as toggleable chips grouped by `category`. Selecting chips composes the comma-separated `tags` string on the `music_tracks` row.",
-      "manipulation": "Add a tag by creating a row with a unique `key`, a `label` (the literal text the engine sees, e.g. `lo-fi`, `female vocal`), and a `category`. Use `enabled=false` to hide a tag from the picker without deleting it. `order` controls position within its category group.",
-      "outcomes": [
-        {
-          "outcome": "Add a new selectable style",
-          "how": "Create a `music_tags` row with `label` set to the descriptor (e.g. `phonk`), pick a `category` (e.g. `genre`), and leave `enabled=true`. It appears as a chip in the Studio immediately."
-        }
-      ],
-      "warnings": [
-        "`label` is sent verbatim to the model — keep it a clean, lowercase descriptor for best results.",
-        "`key` must be unique across the catalog (it is the seed match key)."
-      ]
-    },
-    "icon": "lucide:tags",
-    "appId": {
-      "$oid": "8c0000000000000000000001"
-    },
-    "schema": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["key", "label"],
-      "properties": {
-        "key": {
-          "type": "string",
-          "title": "Key",
-          "description": "Stable unique slug for this tag (e.g. `lo-fi`, `female-vocal`). Used as the seed match key.",
-          "minLength": 1,
-          "maxLength": 80
-        },
-        "label": {
-          "type": "string",
-          "title": "Label",
-          "description": "The literal style descriptor sent to the generator and shown on the chip (e.g. `lo-fi`, `female vocal`, `epic`).",
-          "minLength": 1,
-          "maxLength": 80
-        },
-        "category": {
-          "type": "string",
-          "title": "Category",
-          "description": "Grouping used to organise the chip picker.",
-          "enum": ["genre", "mood", "instrument", "vocal", "tempo", "production"],
-          "default": "genre"
-        },
-        "order": {
-          "type": "integer",
-          "title": "Order",
-          "description": "Ascending position within the category group.",
-          "minimum": 0,
-          "default": 0
-        },
-        "enabled": {
-          "type": "boolean",
-          "title": "Enabled",
-          "description": "When false, the tag is hidden from the Studio picker without deleting the row.",
-          "default": true
-        },
-        "groupIds": {
-          "type": "array",
-          "title": "Groups",
-          "description": "Row-security scope.",
-          "items": {
-            "type": "string",
-            "x-ref": "groups"
-          }
-        }
-      }
-    },
-    "ui": {
-      "display": {
-        "templates": ["{{label}}", "{{key}}"]
-      },
-      "prefabs": {
-        "list": "list",
-        "edit": "edit",
-        "show": "show"
-      },
-      "list": {
-        "headerActions": [
-          {
-            "kind": "new"
-          },
-          {
-            "kind": "refresh"
-          },
-          {
-            "kind": "deleteFiltered"
-          }
-        ]
-      }
-    },
-    "api": {
-      "crud": true,
-      "realtime": true
-    },
-    "auth": {
-      "read": {
-        "groupIds": [
-          {
-            "$oid": "8c0000000000000000040001"
-          },
-          {
-            "$oid": "8c0000000000000000040002"
-          },
-          {
-            "$oid": "8c0000000000000000040003"
-          },
-          {
-            "$oid": "7000000000000000001d0002"
-          }
-        ]
-      },
-      "create": {
-        "groupIds": [
-          {
-            "$oid": "8c0000000000000000040001"
-          },
-          {
-            "$oid": "8c0000000000000000040002"
-          }
-        ]
-      },
-      "edit": {
-        "groupIds": [
-          {
-            "$oid": "8c0000000000000000040001"
-          },
-          {
-            "$oid": "8c0000000000000000040002"
-          }
-        ]
-      },
-      "delete": {
-        "groupIds": [
-          {
-            "$oid": "8c0000000000000000040001"
-          }
-        ]
-      }
-    },
-    "tier": 3,
-    "kind": "lookup"
   }
 ]
