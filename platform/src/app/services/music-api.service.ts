@@ -50,7 +50,12 @@ export type EngineHealth = Readonly<{
  * collection. Uses Angular HttpClient (shared singleton) so the host's auth
  * interceptor attaches the access token automatically.
  */
-@Injectable({ providedIn: 'root' })
+// Component-provided (NOT providedIn:'root'): this service injects
+// PLATFORM_DOCUMENT_STORE, which core supplies to a federated prefab's ELEMENT
+// injector via prefab-host. A root-provided service would resolve in the
+// remote's own environment injector (no PLATFORM_* tokens) → NG0201. So it is
+// listed in the consuming prefabs' `providers`.
+@Injectable()
 export class MusicApiService {
   private readonly http = inject(HttpClient);
   private readonly store = inject(PLATFORM_DOCUMENT_STORE);

@@ -9,6 +9,7 @@ type GenState = 'idle' | 'generating' | 'ready' | 'failed';
   selector: 'music-studio',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [MusicApiService],
   templateUrl: './music-studio.html',
   styleUrl: './music-studio.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
