@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { PLATFORM_DOCUMENT_STORE } from '@loynazkovacs/theitemapp-platform-sdk';
 
 export type GenerateRequest = Readonly<{
   title?: string;
@@ -52,6 +53,7 @@ export type EngineHealth = Readonly<{
 @Injectable({ providedIn: 'root' })
 export class MusicApiService {
   private readonly http = inject(HttpClient);
+  private readonly store = inject(PLATFORM_DOCUMENT_STORE);
   private readonly baseUrl = '/music-api';
 
   async health(): Promise<EngineHealth> {
@@ -73,11 +75,9 @@ export class MusicApiService {
 
   /** Fetch a single track row by id (for polling generation status). */
   async getTrack(id: string): Promise<MusicTrack | null> {
-    try {
-      return await firstValueFrom(this.http.get<MusicTrack>(`/api/dynamic/music_tracks/${id}`));
-    } catch {
-      return null;
-    }
+    // forceRefresh so each generation-status poll hits the API; the store
+    // still coalesces concurrent reads and holds one live socket subscription.
+    return this.store.getNow<MusicTrack>('music_tracks', id, { forceRefresh: true });
   }
 
   /** List recent tracks (newest first). NB: core list sort param is `_s`. */
