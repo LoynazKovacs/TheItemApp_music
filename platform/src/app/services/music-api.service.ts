@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { PLATFORM_DOCUMENT_STORE } from '@loynazkovacs/theitemapp-platform-sdk';
 
 export type GenerateRequest = Readonly<{
   title?: string;
@@ -49,9 +50,15 @@ export type EngineHealth = Readonly<{
  * collection. Uses Angular HttpClient (shared singleton) so the host's auth
  * interceptor attaches the access token automatically.
  */
-@Injectable({ providedIn: 'root' })
+// Component-provided (NOT providedIn:'root'): this service injects
+// PLATFORM_DOCUMENT_STORE, which core supplies to a federated prefab's ELEMENT
+// injector via prefab-host. A root-provided service would resolve in the
+// remote's own environment injector (no PLATFORM_* tokens) → NG0201. So it is
+// listed in the consuming prefabs' `providers`.
+@Injectable()
 export class MusicApiService {
   private readonly http = inject(HttpClient);
+  private readonly store = inject(PLATFORM_DOCUMENT_STORE);
   private readonly baseUrl = '/music-api';
 
   async health(): Promise<EngineHealth> {
@@ -73,11 +80,9 @@ export class MusicApiService {
 
   /** Fetch a single track row by id (for polling generation status). */
   async getTrack(id: string): Promise<MusicTrack | null> {
-    try {
-      return await firstValueFrom(this.http.get<MusicTrack>(`/api/dynamic/music_tracks/${id}`));
-    } catch {
-      return null;
-    }
+    // forceRefresh so each generation-status poll hits the API; the store
+    // still coalesces concurrent reads and holds one live socket subscription.
+    return this.store.getNow<MusicTrack>('music_tracks', id, { forceRefresh: true });
   }
 
   /** List recent tracks (newest first). NB: core list sort param is `_s`. */

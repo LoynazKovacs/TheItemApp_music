@@ -16,6 +16,7 @@ import { MusicApiService, type MusicTrack } from '../../services/music-api.servi
   selector: 'music-player',
   standalone: true,
   imports: [CommonModule],
+  providers: [MusicApiService],
   templateUrl: './music-player.html',
   styleUrl: './music-player.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
